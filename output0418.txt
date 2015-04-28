@@ -1,0 +1,86 @@
+comment
+comment
+Name: positive
+(
+int
+)
+;
+Name: main
+(
+)
+{
+int
+Name: v
+,
+Name: n
+;
+Name: v
+=
+integer: 1
+;
+Name: n
+=
+integer: 0
+;
+while
+(
+Name: n
+<=
+integer: 30
+)
+{
+Name: positive
+(
+Name: v
+)
+;
+Name: put
+(
+character: 10
+)
+;
+Name: v
+=
+Name: v
+*
+integer: 2
+;
+Name: n
+=
+Name: n
++
+integer: 1
+;
+}
+}
+Name: positive
+(
+int
+Name: n
+)
+{
+if
+(
+Name: n
+>=
+integer: 10
+)
+Name: positive
+(
+Name: n
+/
+integer: 10
+)
+;
+Name: put
+(
+Name: n
+%
+integer: 10
++
+integer: 48
+)
+;
+}
+-------
+END
