@@ -1,16 +1,3 @@
 This is the repository for kkh class.
 
-add 変更をインデックスに登録
-
-###マークダウン
-
-
-```test.c
-#include<stdio.h>
-int main(){
-  printf("hogehoge\n");
-  return 0;
-}
-```
-
-という風になる。
+主に電卓の開発で使っていこうと思います。共同開発のためにはgitレポジトリがあった方がいいかなと思ってつくりました。
