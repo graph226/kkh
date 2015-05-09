@@ -186,6 +186,8 @@ block(){
     get_token();
     while( token==Int || token==Enum ){
       if( token==Int ){
+        get_token();
+        if( token==Name ) get_token(); else error();
         var_decl();
       }else{
         enum_decl();
@@ -199,6 +201,8 @@ block(){
     error();
   }
 }
+
+
 
 if_statement(){
   if( token==If ){
