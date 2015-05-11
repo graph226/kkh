@@ -25,22 +25,31 @@ int token;	//次のtoken
 int value;
 int ch;
 int cp;
+int i, j, l;
 
 void get_char();
 void get_line();
 void get_token();
 char str[STR_LEN];
+char letter[STR_LEN];
 double arithmetic();
+struct variable box[52];
 
 typedef struct{		//変数用の構造体
 	int value;
-	char name;
+	char[STR_LEN] name;
 	int isDeclared;
-}
+}variable;
 
 void error(char *message){ //Error表示
 	printf("ERROR:: %s\n", message);
 	longjmp(env, -1);
+}
+
+void reset_letter(){
+	for(l=0;l<STR_LEN;l++){
+		letter[l] = '\0';
+	}
 }
 
 int str_idx = 0;	//初期位置は0
@@ -70,7 +79,8 @@ void get_char(){		//1文字先読み
 	ch = str[idx++];
 }
 
-void get_token(){		//tokenを判定する
+void get_token(){//tokenを判定する
+	int i = 0;
 	while(c_type[ch] == SPACE) get_char();
 	if(c_type[ch] == Num){
 		token = Num;
@@ -83,7 +93,7 @@ void get_token(){		//tokenを判定する
 		}
 	} else if(c_type[ch] == Name){
 		token = Name;
-		value = ch;
+		letter[i++] = ch;
 		get_char();
 	} else if(ch == EOF){
 		token = EndFile;
@@ -106,6 +116,49 @@ int checkOverflow(int result){
 		errot("Overflow");
 	}
 	return result;
+}
+
+double variables(int k){
+	if(!k){			//k=0のとき変数セット
+		i = 0;
+		while(!(box[i].isDeclared)){
+			if(!strcmp(letter,box[i].name)){
+				break;
+			}else{
+				for(j=0;j<STR_LEN;j++){
+					box[i].name[j] = letter[j];
+				}
+				box[i].isDeclared = 1;
+				reset_letter();
+				break;
+			}
+			i++;
+		}
+	}
+
+	if(k){			//k=1のとき変数の利用
+		i = 0;
+		while(box[i].isDeclared){
+			if(!strcmp(letter,box[i].name)){
+				return box[i].value;
+				reset_letter();
+				break;
+			}
+			i++;
+		}
+		error("Undeclared");
+	}
+}
+			
+
+
+	
+	
+
+
+				
+
+
 }
 
 double primary();			//一次式
